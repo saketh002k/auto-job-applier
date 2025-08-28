@@ -1,1 +1,56 @@
 
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Auto Job Applier - LinkedIn</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body class="p-3">
+    <div class="container">
+      <h3>Auto Job Applier - LinkedIn</h3>
+      <form method="post" action="/start" class="row g-2">
+        <div class="col-md-4">
+          <input name="keyword" class="form-control" placeholder="Keyword" value="Waiter">
+        </div>
+        <div class="col-md-4">
+          <input name="location" class="form-control" placeholder="Location" value="Hyderabad">
+        </div>
+        <div class="col-md-2">
+          <input name="interval" class="form-control" placeholder="Interval sec" value="300">
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-primary w-100" type="submit">Start Bot</button>
+        </div>
+      </form>
+      <form method="post" action="/stop" class="mt-2">
+        <button class="btn btn-danger">Stop Bot</button>
+      </form>
+      <hr>
+      <h5>Jobs</h5>
+      <table class="table table-sm table-bordered">
+        <thead><tr><th>ID</th><th>Title</th><th>Company</th><th>Location</th><th>HR Email</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+        {% for j in jobs %}
+          <tr>
+            <td>{{ j[0] }}</td>
+            <td><a href="{{ j[4] }}" target="_blank">{{ j[1] }}</a></td>
+            <td>{{ j[2] }}</td>
+            <td>{{ j[3] }}</td>
+            <td>{{ j[5] or "" }}</td>
+            <td>{{ j[6] or "" }}</td>
+            <td>
+              <form method="post" action="/apply_manual/{{ j[0] }}">
+                <button class="btn btn-sm btn-success" type="submit">Send Resume</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <hr>
+      <p class="text-muted">Notes: Provide LINKEDIN_EMAIL and LINKEDIN_PASSWORD as env vars. Visit /authorize to connect Gmail (first time) before auto-sending.</p>
+    </div>
+  </body>
+</html>
