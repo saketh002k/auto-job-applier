@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+env/
+.env
+token.json
+credentials.json
+resume.pdf
+.DS_Store

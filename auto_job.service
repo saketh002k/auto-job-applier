@@ -1,0 +1,15 @@
+[Unit]
+Description=Auto Job LinkedIn Applier
+After=network.target
+
+[Service]
+User=www-data
+WorkingDirectory=/srv/auto_job_linkedin_applier
+ExecStart=/usr/bin/docker compose up --build
+Restart=always
+Environment=LINKEDIN_EMAIL=your_email
+Environment=LINKEDIN_PASSWORD=your_password
+Environment=SECRET_KEY=some_secret
+
+[Install]
+WantedBy=multi-user.target

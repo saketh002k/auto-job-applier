@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - LINKEDIN_EMAIL=${LINKEDIN_EMAIL}
+      - LINKEDIN_PASSWORD=${LINKEDIN_PASSWORD}
+      - SECRET_KEY=${SECRET_KEY}
+      - TEST_RECEIVER=${TEST_RECEIVER}
+      - JOB_KEYWORD=${JOB_KEYWORD}
+      - JOB_LOCATION=${JOB_LOCATION}
+      - SCRAPE_INTERVAL=${SCRAPE_INTERVAL}
+    volumes:
+      - ./resume.pdf:/app/resume.pdf:ro
+      - ./credentials.json:/app/credentials.json:ro
+      - ./token.json:/app/token.json:rw
